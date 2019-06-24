@@ -140,4 +140,4 @@ function preffixChecker(message) {
 
 // https://discordapp.com/developers/applications/
 
-client.login(process.env.BOT_TOKEN);
+client.login("NDczNTE5NjkyMDM2OTY0MzYz.XRCSBQ.iZOUGvrw1aSObi8iwKPeOLgcsvw");
