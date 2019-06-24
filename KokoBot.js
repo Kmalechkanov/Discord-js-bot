@@ -1,16 +1,20 @@
 const Discord = require('discord.js')
 const client = new Discord.Client()
 
-let tictactoe = {
-    table: ['  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  '],
+const channelsID = {};
 
-    turn: 0,
+class tictactoe {
+    constructor() { };
 
-    tutorial: `\`\`\`1 |2 |3` +
-        `\n--+--+--\n4 |5 |6` +
-        `\n--+--+--\n7 |8 |9 \`\`\``,
+    table = ['  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  '];
 
-    checkWin: function () {
+    turn = 0;
+
+    tutorial = `\`\`\`7 |8 |9 ` +
+        `\n--+--+--\n4 |5 |6 ` +
+        `\n--+--+--\n1 |2 |3 \`\`\``;
+
+    checkWin() {
         if (this.table[0] != '  ' && this.table[0] == this.table[1] && this.table[1] == this.table[2]
             || this.table[3] != '  ' && this.table[3] == this.table[4] && this.table[4] == this.table[5]
             || this.table[6] != '  ' && this.table[6] == this.table[7] && this.table[7] == this.table[8]
@@ -22,42 +26,42 @@ let tictactoe = {
             return true;
         }
         return false;
-    },
+    };
 
-    reset: function () {
+    reset() {
         this.table = ['  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  '];
         this.turn = 0;
-    },
+    };
 
-    drawTable: function () {
+    drawTable() {
         //console.log(this.table[0] + "im in")
-        let drawTable = `\`\`\`${this.table[0]}|${this.table[1]}|${this.table[2]}` +
+        let drawTable = `\`\`\`${this.table[6]}|${this.table[7]}|${this.table[8]}` +
             `\n--+--+--\n${this.table[3]}|${this.table[4]}|${this.table[5]}` +
-            `\n--+--+--\n${this.table[6]}|${this.table[7]}|${this.table[8]}\`\`\``
+            `\n--+--+--\n${this.table[0]}|${this.table[1]}|${this.table[2]}\`\`\``
         return drawTable;
-    },
+    };
 
-    playerTurn: function () {
+    playerTurn() {
         if (this.turn % 2 == 0) {
             return '><';
         }
         return '<>';
-    },
+    };
 
-    choose: function (number) {
+    choose(number) {
         let fixedNumb = number - 1;
         if (this.table[fixedNumb] != '  ') {
             return '```This box is already choosed!```';
         }
         this.table[fixedNumb] = this.playerTurn();
         this.turn++;
-        return this.drawTable();        
+        return this.drawTable();
     }
 }
 
-function processCommand(receivedMessage) {
-    let originalMessage = receivedMessage;
-    let fullCommand = receivedMessage.content.substr(1);
+function processCommand(rm) {
+    let originalMessage = rm;
+    let fullCommand = rm.content.substr(1);
     let splitCommand = fullCommand.split(" ");
     let primaryCommand = splitCommand[0];
     let arguments = splitCommand.slice(1);
@@ -70,31 +74,39 @@ function processCommand(receivedMessage) {
 
     if (primaryCommand == "test" && argLength === 1) {
         console.log(arguments[0] + " debug");
-        receivedMessage.channel.send(arguments[0]);
+        rm.channel.send(arguments[0]);
     }
 
     else if (primaryCommand == "test2" && argLength === 2) {
         //multiplyCommand(arguments, receivedMessage)
-        receivedMessage.channel.send(arguments[0] + "-" + arguments[1]);
+        rm.channel.send(arguments[0] + "-" + arguments[1]);
     }
 
-    else if (primaryCommand == "ttt") {
+    else if (primaryCommand == "ttt" || primaryCommand == "t") {
+        if (!channelsID.hasOwnProperty(rm.channel.id)) {
+            channelsID[rm.channel.id] = new tictactoe();
+        }
+
+        //console.log(channelsID);
 
         if (argLength === 1 && arguments[0] === 'new') {
-            tictactoe.reset();
-            receivedMessage.channel.send(tictactoe.drawTable());
+            channelsID[rm.channel.id].reset();
+            rm.channel.send(channelsID[rm.channel.id].drawTable());
         }
         else if (argLength === 1 && arguments[0] === 'draw') {
-            receivedMessage.channel.send(tictactoe.drawTable());
+            rm.channel.send(channelsID[rm.channel.id].drawTable());
+        }
+        else if (argLength === 1 && arguments[0] === 'tutorial') {
+            rm.channel.send(channelsID[rm.channel.id].tutorial);
         }
         else if (argLength === 1 && (Number(arguments[0]) > 0 && Number(arguments[0]) <= 9)) {
-            receivedMessage.channel.send(tictactoe.choose(Number(arguments[0])));
+            rm.channel.send(channelsID[rm.channel.id].choose(Number(arguments[0])));
 
-            if (tictactoe.checkWin()) {
-                tictactoe.turn--;
-                let winner = tictactoe.playerTurn();
-                receivedMessage.channel.send(`\`\`\`${winner} won!\`\`\``);
-                tictactoe.reset();
+            if (channelsID[rm.channel.id].checkWin()) {
+                channelsID[rm.channel.id].turn--;
+                let winner = channelsID[rm.channel.id].playerTurn();
+                rm.channel.send(`\`\`\`${winner} won!\`\`\``);
+                channelsID[rm.channel.id].reset();
             }
         }
     }
@@ -127,7 +139,6 @@ function preffixChecker(message) {
 }
 
 // https://discordapp.com/developers/applications/
-bot_secret_token = "NDczNTE5NjkyMDM2OTY0MzYz.XQ-J9Q.P-jLh-bjW5Blyn6OpdJqJmS5yTo"
+bot_secret_token = "NDczNTE5NjkyMDM2OTY0MzYz.XQ-J9Q.P-jLh-bjW5Blyn6OpdJqJmS5yTo";
 
-client.login(bot_secret_token)
-
+client.login(bot_secret_token);
