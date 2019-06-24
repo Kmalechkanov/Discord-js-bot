@@ -6,7 +6,7 @@ const channelsID = {};
 class tictactoe {
     constructor() { };
 
-    table = ['  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  '];
+    table = ()=> ['  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  '];
 
     turn = 0;
 
