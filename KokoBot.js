@@ -139,6 +139,5 @@ function preffixChecker(message) {
 }
 
 // https://discordapp.com/developers/applications/
-bot_secret_token = "NDczNTE5NjkyMDM2OTY0MzYz.XQ-J9Q.P-jLh-bjW5Blyn6OpdJqJmS5yTo";
 
-client.login(bot_secret_token);
+client.login(process.env.BOT_TOKEN);
