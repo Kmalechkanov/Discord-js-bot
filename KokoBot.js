@@ -4,13 +4,11 @@ const client = new Discord.Client()
 const channelsID = {};
 
 class tictactoe {
-    constructor() { };
-
-    table = ()=> ['  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  '];
-
-    turn = 0;
-
-    tutorial = `\`\`\`7 |8 |9 \n--+--+--\n4 |5 |6 \n--+--+--\n1 |2 |3 \`\`\``;
+    constructor() {
+        this.table = ['  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  '];
+        this.turn = 0;
+        this.tutorial = `\`\`\`7 |8 |9 \n--+--+--\n4 |5 |6 \n--+--+--\n1 |2 |3 \`\`\``;
+    };
 
     checkWin() {
         if (this.table[0] != '  ' && this.table[0] == this.table[1] && this.table[1] == this.table[2]
@@ -20,7 +18,7 @@ class tictactoe {
             || this.table[1] != '  ' && this.table[1] == this.table[4] && this.table[4] == this.table[7]
             || this.table[2] != '  ' && this.table[2] == this.table[5] && this.table[5] == this.table[8]
             || this.table[0] != '  ' && this.table[0] == this.table[4] && this.table[4] == this.table[8]
-            || this.table[2] != '  ' && this.table[2] == this.table[4] && this.able[4] == this.table[6]) {
+            || this.table[2] != '  ' && this.table[2] == this.table[4] && this.table[4] == this.table[6]) {
             return true;
         }
         return false;
@@ -32,7 +30,6 @@ class tictactoe {
     };
 
     drawTable() {
-        //console.log(this.table[0] + "im in")
         let drawTable = `\`\`\`${this.table[6]}|${this.table[7]}|${this.table[8]}` +
             `\n--+--+--\n${this.table[3]}|${this.table[4]}|${this.table[5]}` +
             `\n--+--+--\n${this.table[0]}|${this.table[1]}|${this.table[2]}\`\`\``
@@ -85,7 +82,7 @@ function processCommand(rm) {
             channelsID[rm.channel.id] = new tictactoe();
         }
 
-        //console.log(channelsID);
+        console.log(channelsID);
 
         if (argLength === 1 && arguments[0] === 'new') {
             channelsID[rm.channel.id].reset();
