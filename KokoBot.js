@@ -10,9 +10,7 @@ class tictactoe {
 
     turn = 0;
 
-    tutorial = `\`\`\`7 |8 |9 ` +
-        `\n--+--+--\n4 |5 |6 ` +
-        `\n--+--+--\n1 |2 |3 \`\`\``;
+    tutorial = `\`\`\`7 |8 |9 \n--+--+--\n4 |5 |6 \n--+--+--\n1 |2 |3 \`\`\``;
 
     checkWin() {
         if (this.table[0] != '  ' && this.table[0] == this.table[1] && this.table[1] == this.table[2]
