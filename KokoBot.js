@@ -70,6 +70,16 @@ function processCommand(rm) {
         rm.channel.send(`\`\`\`**Commands**\n!test {arg}\n!test2 {arg} {arg}\n!t help (tictactoe)\n**Credits Kaloyan Malechkanov** \`\`\``);
     }
 
+    else if (primaryCommand == "picture" || primaryCommand == "pic" ) {
+        if(argLength === 0)
+        {
+            rm.channel.send(rm.author.avatarURL);
+        }
+        else if (argLength === 0) {
+            rm.channel.send(arguments[0].avatarURL);
+        }
+    }
+
     else if (primaryCommand == "test" && argLength === 1) {
         console.log(arguments[0] + " debug");
         rm.channel.send(arguments[0]);
