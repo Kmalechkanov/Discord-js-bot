@@ -66,8 +66,11 @@ function processCommand(rm) {
     //console.log("Arguments: " + arguments) 
     let argLength = arguments.length;
 
+    if (primaryCommand == "help" && argLength === 0) {
+        rm.channel.send(`\`\`\`**Commands**\n!test {arg}\n!test2 {arg} {arg}\n!t help (tictactoe)\n**Credits Kaloyan Malechkanov** \`\`\``);
+    }
 
-    if (primaryCommand == "test" && argLength === 1) {
+    else if (primaryCommand == "test" && argLength === 1) {
         console.log(arguments[0] + " debug");
         rm.channel.send(arguments[0]);
     }
