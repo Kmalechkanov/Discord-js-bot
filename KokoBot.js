@@ -148,4 +148,4 @@ function preffixChecker(message) {
 
 // https://discordapp.com/developers/applications/
 
-client.login("Your_token");
+client.login(process.env.YOUR_TOKEN);
