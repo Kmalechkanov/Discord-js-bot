@@ -67,7 +67,7 @@ function processCommand(rm) {
     let argLength = arguments.length;
 
     if (primaryCommand == "help" && argLength === 0) {
-        rm.channel.send(`\`\`\`**Commands**\n!test {arg}\n!test2 {arg} {arg}\n!t help (tictactoe)\n**Credits Kaloyan Malechkanov** \`\`\``);
+        rm.channel.send(`\`\`\`**Commands**\n!test {arg}\n!test2 {arg} {arg}\n!picture (return your picture [soon with args])\n!t help (tictactoe)\n**Credits Kaloyan Malechkanov** \`\`\``);
     }
 
     else if (primaryCommand == "picture" || primaryCommand == "pic" ) {
