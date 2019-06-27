@@ -75,7 +75,7 @@ function processCommand(rm) {
         {
             rm.channel.send(rm.author.avatarURL);
         }
-        else if (argLength === 0) {
+        else if (argLength === 1) {
             rm.channel.send(arguments[0].avatarURL);
         }
     }
