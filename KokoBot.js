@@ -76,7 +76,7 @@ function processCommand(rm) {
             rm.channel.send(rm.author.avatarURL);
         }
         else if (argLength === 1) {
-            let taggedUser = rm.mentions.users()[0];
+            let taggedUser = rm.mentions.members.first();
             rm.channel.send(taggedUser.avatarURL);
         }
     }
