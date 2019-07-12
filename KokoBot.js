@@ -1,5 +1,6 @@
 const Discord = require('discord.js')
 const client = new Discord.Client()
+const riotApiToken = process.env.YOUR_TOKEN_API;
 
 const channelsID = {};
 
