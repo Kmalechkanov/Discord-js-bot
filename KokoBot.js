@@ -3,11 +3,14 @@ const client = new Discord.Client()
 
 const channelsID = {};
 
-class tictactoe {
+class Tictactoe {
     constructor() {
         this.table = ['  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  '];
         this.turn = 0;
-        this.tutorial = `\`\`\`7 |8 |9 \n--+--+--\n4 |5 |6 \n--+--+--\n1 |2 |3 \`\`\``;
+    };
+
+    tutorial(){
+        return `\`\`\`7 |8 |9 \n--+--+--\n4 |5 |6 \n--+--+--\n1 |2 |3 \`\`\``;
     };
 
     checkWin() {
@@ -93,7 +96,7 @@ function processCommand(rm) {
 
     else if (primaryCommand == "ttt" || primaryCommand == "t") {
         if (!channelsID.hasOwnProperty(rm.channel.id)) {
-            channelsID[rm.channel.id] = new tictactoe();
+            channelsID[rm.channel.id] = new Tictactoe();
         }
 
         console.log(channelsID);
@@ -106,7 +109,7 @@ function processCommand(rm) {
             rm.channel.send(channelsID[rm.channel.id].drawTable());
         }
         else if (argLength === 1 && arguments[0] === 'tutorial') {
-            rm.channel.send(channelsID[rm.channel.id].tutorial);
+            rm.channel.send(Tictactoe.tutorial());
         }
         else if (argLength === 1 && (Number(arguments[0]) > 0 && Number(arguments[0]) <= 9)) {
             rm.channel.send(channelsID[rm.channel.id].choose(Number(arguments[0])));
