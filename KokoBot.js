@@ -127,7 +127,7 @@ function processCommand(rm) {
 
     else if (primaryCommand === 'lol' && arguments[0] === 'accountid' && arguments[1] != undefined)
     {
-        LeagueAPI.getAccountId('Hi i am Evgenij').then(data=>{
+        LeagueApi.getAccountId('Hi i am Evgenij').then(data=>{
             rm.channel.send(arguments[1] + '-' + arguments[0] + '-' + data.accountId);
         })
     }
