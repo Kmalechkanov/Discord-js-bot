@@ -3,28 +3,46 @@ const token = process.env.YOUR_TOKEN_API;
 //const tokenJson = require('./token.json').token;
 //const apiLinksJson = require('./apiLinks.json');
 
-class LeagueAPI {
-
-    static getSummonerId(summoner) {
-        let url = `https://eun1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summoner}?api_key=${token}`;
-
-        fetch(url)
-            .then((response) => response.json())
-            .then((obj) => {
-                console.log(obj.id);
-                return obj.id;
-            });
+regionsHandler = (region) => {
+    switch (region.toUpperCase()) {
+        case 'BR':
+        return 'br1';
+        case 'EUNE':
+        return 'eun1';
+        case 'EUW':
+        return 'euw1';
+        case 'JP':
+        return 'jp1';
+        case 'KR':
+        return 'kr';
+        case 'LAN':
+        return 'la1';
+        case 'LAS':
+        return 'la2';
+        case 'NA':
+        return 'na1';
+        case 'OCE':
+        return 'oc1';
+        case 'TR':
+        return 'tr1';
+        case 'RU':
+        return 'ru';
+        case 'PBE':
+        return 'pbe1';
     }
+}
 
-    static async getAccountId(summoner) {
-        let url = `https://eun1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summoner}?api_key=${token}`;
+class LeagueAPI {
+    
+    static async getSummoner(summoner, region) {
+        let url = `https://${regionsHandler(region)}.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summoner}?api_key=${token}`;
         let response = await fetch(url);
         let data = await response.json();
         return data;
     }
-
-    static getCurrentGameBySummonerId(summonerId) {
-        let url = `https://eun1.api.riotgames.com/lol/match/v4/matchlists/by-account/${summonerId}?api_key=${token}`;
+    //TODO
+    static getCurrentGameBySummonerId(summonerId, region) {
+        let url = `https://${regionsHandler(region)}.api.riotgames.com/lol/match/v4/matchlists/by-account/${summonerId}?api_key=${token}`;
 
         fetch(url)
             .then((response) => response.json)
@@ -33,15 +51,15 @@ class LeagueAPI {
                 console.log('im in');
             });
     }
-
-    static getCurrentGameBySummonerName(summoner) {
-        let url1 = `https://eun1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summoner}?api_key=${token}`;
+    //TODO
+    static getCurrentGameBySummonerName(summoner, region) {
+        let url1 = `https://${regionsHandler(region)}.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summoner}?api_key=${token}`;
 
         fetch(url1)
             .then((response) => response.json())
             .then((obj) => {
                 console.log(obj.id);
-                let url2 = `https://eun1.api.riotgames.com//lol/spectator/v4/active-games/by-summoner/${obj.id}?api_key=${token}`;
+                let url2 = `https://${regionsHandler(region)}.api.riotgames.com//lol/spectator/v4/active-games/by-summoner/${obj.id}?api_key=${token}`;
                 fetch(url2)
                     .then((response) => response.json())
                     .then((result) => {
@@ -49,9 +67,9 @@ class LeagueAPI {
                     });
             });
     }
-
-    static getSummonerChampionsBySummonerId(summoner) {
-        let url1 = `https://eun1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summoner}?api_key=${token}`;
+    //TODO
+    static getSummonerChampionsBySummonerId(summoner, region) {
+        let url1 = `https://${regionsHandler(region)}.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summoner}?api_key=${token}`;
 
         fetch(url1)
             .then((response) => response.json())

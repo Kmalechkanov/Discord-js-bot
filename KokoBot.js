@@ -12,7 +12,7 @@ class Tictactoe {
         this.turn = 0;
     };
 
-    tutorial(){
+    tutorial() {
         return `\`\`\`7 |8 |9 \n--+--+--\n4 |5 |6 \n--+--+--\n1 |2 |3 \`\`\``;
     };
 
@@ -73,12 +73,22 @@ function processCommand(rm) {
     let argLength = arguments.length;
 
     if (primaryCommand === "help" && argLength === 0) {
-        rm.channel.send(`\`\`\`**Commands**\n!test {arg}\n!test2 {arg} {arg}\n!picture (return your picture [soon with args])\n!t help (tictactoe)\n**Credits Kaloyan Malechkanov** \`\`\``);
+        let helpMessage = '\`\`\`';
+        helpMessage += '**Commands**\n';
+        helpMessage += '!test {arg}\n';
+        helpMessage += '!test2 {arg} {arg}\n';
+        helpMessage += '!picture (return your picture [soon with args])\n';
+        helpMessage += '!t help (tictactoe)\n';
+        helpMessage += '!lol accountid {summonerName} {region} (returns account id by given summoner name)\n';
+        helpMessage += '!lol seen {summonerName} {region} (returns last time played)\n';
+        helpMessage += '!lol id {summonerName} {region} (returns summoner id by given summoner name)\n';
+        helpMessage += '!lol level {summonerName} {region} (returns current level of summoner by given summoner name)\n';
+        helpMessage += '**Credits Kaloyan Malechkanov** \`\`\`';
+
     }
 
-    else if (primaryCommand === "picture" || primaryCommand === "pic" ) {
-        if(argLength === 0)
-        {
+    else if (primaryCommand === "picture" || primaryCommand === "pic") {
+        if (argLength === 0) {
             rm.channel.send(rm.author.avatarURL);
         }
         else if (argLength === 1) {
@@ -88,7 +98,6 @@ function processCommand(rm) {
     }
 
     else if (primaryCommand === "test" && argLength === 1) {
-        console.log(arguments[0] + " debug");
         rm.channel.send(arguments[0]);
     }
 
@@ -100,8 +109,6 @@ function processCommand(rm) {
         if (!channelsID.hasOwnProperty(rm.channel.id)) {
             channelsID[rm.channel.id] = new Tictactoe();
         }
-
-        console.log(channelsID);
 
         if (argLength === 1 && arguments[0] === 'new') {
             channelsID[rm.channel.id].reset();
@@ -125,11 +132,28 @@ function processCommand(rm) {
         }
     }
 
-    else if (primaryCommand === 'lol' && arguments[0] === 'accountid' && arguments[1] != undefined)
-    {
-        LeagueApi.getAccountId('Hi i am Evgenij').then(data=>{
-            rm.channel.send(arguments[1] + '-' + arguments[0] + '-' + data.accountId);
-        })
+    else if (primaryCommand === 'lol'&& arguments[1] != undefined && arguments[2] != undefined) {
+        if (arguments[0] === 'accountid') {
+            LeagueApi.getAccountId(arguments[1], arguments[2]).then(data => {
+                rm.channel.send(`**${arguments[1]} ${arguments[0]} - __${data.accountId}__ - ${arguments[2]}**`);
+            })
+        }
+        else if (arguments[0] === 'id') {
+            LeagueApi.getAccountId(arguments[1], arguments[2]).then(data => {
+                rm.channel.send(`**${arguments[1]} ${arguments[0]} - __${data.id}__ - ${arguments[2]}**`);
+            })
+        }
+        else if (arguments[0] === 'level') {
+            LeagueApi.getAccountId(arguments[1], arguments[2]).then(data => {
+                rm.channel.send(`**${arguments[1]} ${arguments[0]} - __${data.summonerLevel}__ - ${arguments[2]}**`);
+            })
+        }
+        else if (arguments[0] === 'seen') {
+            LeagueApi.getAccountId(arguments[1], arguments[2]).then(data => {
+                var date = new Date(data.revisionDate);
+                rm.channel.send(`**${arguments[1]} ${arguments[0]} - __${date.toString()}__**`);
+            })
+        }
     }
 }
 
@@ -143,7 +167,7 @@ client.on('message', (message) => {
     }
     if (!preffixChecker(message.content)) {
         let currentDate = new Date();
-        console.log(currentDate.getHours() + '-' + currentDate.getMinutes() + ' - Wrong Suffix')
+        console.log(currentDate.getHours() + '-' + currentDate.getMinutes() + ' - Wrong Suffix! - ' + message.channel.name)
         return;
     }
 
