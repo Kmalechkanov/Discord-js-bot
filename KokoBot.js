@@ -135,22 +135,22 @@ function processCommand(rm) {
 
     else if (primaryCommand === 'lol'&& arguments[1] != undefined && arguments[2] != undefined) {
         if (arguments[0] === 'accountid') {
-            LeagueApi.getAccountId(arguments[1], arguments[2]).then(data => {
+            LeagueApi.getSummoner(arguments[1], arguments[2]).then(data => {
                 rm.channel.send(`**${arguments[1]} ${arguments[0]} - __${data.accountId}__ - ${arguments[2]}**`);
             })
         }
         else if (arguments[0] === 'id') {
-            LeagueApi.getAccountId(arguments[1], arguments[2]).then(data => {
+            LeagueApi.getSummoner(arguments[1], arguments[2]).then(data => {
                 rm.channel.send(`**${arguments[1]} ${arguments[0]} - __${data.id}__ - ${arguments[2]}**`);
             })
         }
         else if (arguments[0] === 'level') {
-            LeagueApi.getAccountId(arguments[1], arguments[2]).then(data => {
+            LeagueApi.getSummoner(arguments[1], arguments[2]).then(data => {
                 rm.channel.send(`**${arguments[1]} ${arguments[0]} - __${data.summonerLevel}__ - ${arguments[2]}**`);
             })
         }
         else if (arguments[0] === 'seen') {
-            LeagueApi.getAccountId(arguments[1], arguments[2]).then(data => {
+            LeagueApi.getSummoner(arguments[1], arguments[2]).then(data => {
                 var date = new Date(data.revisionDate);
                 rm.channel.send(`**${arguments[1]} ${arguments[0]} - __${date.toString()}__**`);
             })
