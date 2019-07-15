@@ -85,6 +85,7 @@ function processCommand(rm) {
         helpMessage += '!lol level {summonerName} {region} (returns current level of summoner by given summoner name)\n';
         helpMessage += '**Credits Kaloyan Malechkanov** \`\`\`';
 
+        rm.channel.send(helpMessage);
     }
 
     else if (primaryCommand === "picture" || primaryCommand === "pic") {
