@@ -4,11 +4,10 @@
   "description": "discord bot",
   "main": "KokoBot.js",
   "dependencies": {
-    "discord.js": "^11.5.1"
-  },
-  "devDependencies": {
+    "discord.js": "^11.5.1",
     "node-fetch": "^2.6.0"
   },
+  "devDependencies": {},
   "scripts": {
     "start": "node KokoBot.js"
   },
