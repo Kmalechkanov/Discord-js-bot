@@ -6,7 +6,9 @@
   "dependencies": {
     "discord.js": "^11.5.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "node-fetch": "^2.6.0"
+  },
   "scripts": {
     "start": "node KokoBot.js"
   },

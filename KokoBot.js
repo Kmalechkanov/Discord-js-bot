@@ -1,6 +1,7 @@
 const Discord = require('discord.js')
-const client = new Discord.Client()
-const riotApiToken = process.env.YOUR_TOKEN_API;
+const client = new Discord.Client();
+
+const LeagueApi = require('./LeagueOfLegendsAPI.js');
 
 const channelsID = {};
 
@@ -70,11 +71,11 @@ function processCommand(rm) {
     //console.log("Arguments: " + arguments) 
     let argLength = arguments.length;
 
-    if (primaryCommand == "help" && argLength === 0) {
+    if (primaryCommand === "help" && argLength === 0) {
         rm.channel.send(`\`\`\`**Commands**\n!test {arg}\n!test2 {arg} {arg}\n!picture (return your picture [soon with args])\n!t help (tictactoe)\n**Credits Kaloyan Malechkanov** \`\`\``);
     }
 
-    else if (primaryCommand == "picture" || primaryCommand == "pic" ) {
+    else if (primaryCommand === "picture" || primaryCommand === "pic" ) {
         if(argLength === 0)
         {
             rm.channel.send(rm.author.avatarURL);
@@ -85,17 +86,16 @@ function processCommand(rm) {
         }
     }
 
-    else if (primaryCommand == "test" && argLength === 1) {
+    else if (primaryCommand === "test" && argLength === 1) {
         console.log(arguments[0] + " debug");
         rm.channel.send(arguments[0]);
     }
 
-    else if (primaryCommand == "test2" && argLength === 2) {
-        //multiplyCommand(arguments, receivedMessage)
+    else if (primaryCommand === "test2" && argLength === 2) {
         rm.channel.send(arguments[0] + "-" + arguments[1]);
     }
 
-    else if (primaryCommand == "ttt" || primaryCommand == "t") {
+    else if (primaryCommand === "ttt" || primaryCommand === "t") {
         if (!channelsID.hasOwnProperty(rm.channel.id)) {
             channelsID[rm.channel.id] = new Tictactoe();
         }
@@ -123,10 +123,17 @@ function processCommand(rm) {
             }
         }
     }
+
+    else if (primaryCommand === 'lol' && arguments[0] === 'accountid' && arguments[1] != undefined)
+    {
+        LeagueAPI.getAccountId('Hi i am Evgenij').then(data=>{
+            rm.channel.send(arguments[1] + '-' + arguments[0] + '-' + data.accountId);
+        })
+    }
 }
 
 client.on('ready', () => {
-    console.log("Connected as " + client.user.tag)
+    console.log('Connected as ' + client.user.tag)
 });
 
 client.on('message', (message) => {
