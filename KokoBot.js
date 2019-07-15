@@ -75,14 +75,14 @@ function processCommand(rm) {
     if (primaryCommand === "help" && argLength === 0) {
         let helpMessage = '\`\`\`';
         helpMessage += '**Commands**\n';
-        helpMessage += '!test {arg}\n';
-        helpMessage += '!test2 {arg} {arg}\n';
-        helpMessage += '!picture (return your picture [soon with args])\n';
-        helpMessage += '!t help (tictactoe)\n';
-        helpMessage += '!lol accountid {summonerName} {region} (returns account id by given summoner name)\n';
-        helpMessage += '!lol seen {summonerName} {region} (returns last time played)\n';
-        helpMessage += '!lol id {summonerName} {region} (returns summoner id by given summoner name)\n';
-        helpMessage += '!lol level {summonerName} {region} (returns current level of summoner by given summoner name)\n';
+        helpMessage += '~test {arg}\n';
+        helpMessage += '~test2 {arg} {arg}\n';
+        helpMessage += '~picture (return your picture [soon with args])\n';
+        helpMessage += '~t help (tictactoe)\n';
+        helpMessage += '~lol accountid {summonerName} {region} (returns account id by given summoner name)\n';
+        helpMessage += '~lol seen {summonerName} {region} (returns last time played)\n';
+        helpMessage += '~lol id {summonerName} {region} (returns summoner id by given summoner name)\n';
+        helpMessage += '~lol level {summonerName} {region} (returns current level of summoner by given summoner name)\n';
         helpMessage += '**Credits Kaloyan Malechkanov** \`\`\`';
 
         rm.channel.send(helpMessage);
@@ -168,7 +168,7 @@ client.on('message', (message) => {
     }
     if (!preffixChecker(message.content)) {
         let currentDate = new Date();
-        console.log(currentDate.getHours() + '-' + currentDate.getMinutes() + ' - Wrong Suffix! - ' + message.channel.name)
+        console.log(currentDate.getHours() + '-' + currentDate.getMinutes() + ' - Wrong Suffix! - ' + message.channel + ' - ' + message.author + ' - ' + message.content);
         return;
     }
 
@@ -178,7 +178,7 @@ client.on('message', (message) => {
 });
 
 function preffixChecker(message) {
-    if (message.startsWith('!')) {
+    if (message.startsWith('~')) {
         return true;
     }
     return false;
