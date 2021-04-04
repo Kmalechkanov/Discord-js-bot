@@ -60,7 +60,7 @@ class Tictactoe {
     }
 }
 
-function processCommand(rm) {
+async function processCommand(rm) {
     let originalMessage = rm;
     let fullCommand = rm.content.substr(1);
     let splitCommand = fullCommand.split(" ");
@@ -86,6 +86,16 @@ function processCommand(rm) {
         helpMessage += '**Credits Kaloyan Malechkanov** \`\`\`';
 
         rm.channel.send(helpMessage);
+    }
+
+    else if (primaryCommand === "ghostmc") {
+        fetch('https://api.mcsrvstat.us/2/play.ghostmc.eu')
+            .then(response => response.json())
+            .then(data =>  {
+                let players = data.players.list.join(', ');
+                let playersCount = data.players.online
+                rm.channel.send(playersCount + " players online:\n" + players);
+            });
     }
 
     else if (primaryCommand === "picture" || primaryCommand === "pic") {
