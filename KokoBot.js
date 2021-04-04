@@ -91,10 +91,10 @@ async function processCommand(rm) {
     else if (primaryCommand === "ghostmc") {
         fetch('https://api.mcsrvstat.us/2/play.ghostmc.eu')
             .then(response => response.json())
-            .then(data =>  {
+            .then(data => {
                 let players = data.players.list.join(', ');
                 let playersCount = data.players.online
-                rm.channel.send(playersCount + " players online:\n" + players);
+                rm.channel.send("``" + playersCount + " players online:\n" + players + "``");
             });
     }
 
@@ -143,7 +143,7 @@ async function processCommand(rm) {
         }
     }
 
-    else if (primaryCommand === 'lol'&& arguments[1] != undefined && arguments[2] != undefined) {
+    else if (primaryCommand === 'lol' && arguments[1] != undefined && arguments[2] != undefined) {
         if (arguments[0] === 'accountid') {
             LeagueApi.getSummoner(arguments[1], arguments[2]).then(data => {
                 rm.channel.send(`**${arguments[1]} ${arguments[0]} - __${data.accountId}__ - ${arguments[2]}**`);
