@@ -98,6 +98,16 @@ async function processCommand(rm) {
             });
     }
 
+    else if (primaryCommand === "smp") {
+        fetch('https://api.mcsrvstat.us/2/148.251.175.115:25445')
+            .then(response => response.json())
+            .then(data => {
+                let players = data.players.list.join(', ');
+                let playersCount = data.players.online
+                rm.channel.send("``" + playersCount + " players online:\n" + players + "``");
+            });
+    }
+
     else if (primaryCommand === "picture" || primaryCommand === "pic") {
         if (argLength === 0) {
             rm.channel.send(rm.author.avatarURL);
