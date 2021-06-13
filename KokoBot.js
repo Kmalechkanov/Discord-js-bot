@@ -92,9 +92,13 @@ async function processCommand(rm) {
         fetch('https://api.mcsrvstat.us/2/play.ghostmc.eu')
             .then(response => response.json())
             .then(data => {
+                let playersCount = data.players.online;
+                  if(playersCount == 0) {
+                    console.log("0 players online.");
+                    return;
+                }
                 let players = data.players.list.join(', ');
-                let playersCount = data.players.online
-                rm.channel.send("``" + playersCount + " players online:\n" + players + "``");
+                console.log("``" + playersCount + " players online:\n" + players + "``");
             });
     }
 
@@ -102,9 +106,13 @@ async function processCommand(rm) {
         fetch('https://api.mcsrvstat.us/2/148.251.175.115:25445')
             .then(response => response.json())
             .then(data => {
+                let playersCount = data.players.online;
+                  if(playersCount == 0) {
+                    console.log("0 players online.");
+                    return;
+                }
                 let players = data.players.list.join(', ');
-                let playersCount = data.players.online
-                rm.channel.send("``" + playersCount + " players online:\n" + players + "``");
+                console.log("``" + playersCount + " players online:\n" + players + "``");
             });
     }
 
