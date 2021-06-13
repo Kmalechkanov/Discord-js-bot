@@ -94,11 +94,11 @@ async function processCommand(rm) {
             .then(data => {
                 let playersCount = data.players.online;
                   if(playersCount == 0) {
-                    console.log("0 players online.");
+                    rm.channel.send("0 players online.");
                     return;
                 }
                 let players = data.players.list.join(', ');
-                console.log("``" + playersCount + " players online:\n" + players + "``");
+                rm.channel.send("``" + playersCount + " players online:\n" + players + "``");
             });
     }
 
@@ -108,11 +108,11 @@ async function processCommand(rm) {
             .then(data => {
                 let playersCount = data.players.online;
                   if(playersCount == 0) {
-                    console.log("0 players online.");
+                    rm.channel.send("0 players online.");
                     return;
                 }
                 let players = data.players.list.join(', ');
-                console.log("``" + playersCount + " players online:\n" + players + "``");
+                rm.channel.send("``" + playersCount + " players online:\n" + players + "``");
             });
     }
 
