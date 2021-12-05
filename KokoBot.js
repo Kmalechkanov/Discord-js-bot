@@ -103,7 +103,7 @@ async function processCommand(rm) {
     }
 
     else if (primaryCommand === "smp") {
-        fetch('https://api.mcsrvstat.us/2/148.251.175.115:25445')
+        fetch('https://api.mcsrvstat.us/2/162.55.95.122:25708')
             .then(response => response.json())
             .then(data => {
                 let playersCount = data.players.online;
