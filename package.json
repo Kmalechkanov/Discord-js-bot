@@ -4,7 +4,9 @@
   "description": "discord bot",
   "main": "KokoBot.js",
   "dependencies": {
-    "discord.js": "^11.5.1",
+    "@discordjs/rest": "0.1.0-canary.0",
+    "discord-api-types": "^0.25.2",
+    "discord.js": "^13.3.1",
     "node-fetch": "^2.6.1"
   },
   "devDependencies": {},
