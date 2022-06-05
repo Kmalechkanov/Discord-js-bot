@@ -238,5 +238,4 @@ function preffixChecker(message) {
 
 // https://discordapp.com/developers/applications/
 
-client.login('NDczNTE5NjkyMDM2OTY0MzYz.XRKWTw.LGYhKqupdE2v7WogoZSwlzePFCk');
-// client.login(process.env.YOUR_TOKEN);
+client.login(process.env.YOUR_TOKEN);
