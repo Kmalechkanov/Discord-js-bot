@@ -121,20 +121,20 @@ async function processCommand(rm) {
 					rm.channel.send("0 players online.");
 					return;
 				}
-				let players = data.players.list.join(', ');
-				rm.channel.send("``" + playersCount + " players online:\n" + players + "``");
-			});
-	}
 
-	else if (primaryCommand === "smp") {
-		fetch('https://api.mcsrvstat.us/2/162.55.95.122:25708')
-			.then(response => response.json())
-			.then(data => {
-				let playersCount = data.players.online;
-				  if(playersCount == 0) {
-					rm.channel.send("0 players online.");
+				if(!data.players.list) {
+					let message = "\n" +
+					"Enable this to get detailled information about the server (all names of the online players):\n" +
+					"	query-plugins: true | bukkit.yml\n" +
+					"	qenable-query=true | server.properties\n" + 
+					"To skip that message use '~ghostmc s' or '~ghostmc silent'";
+
+					let silent = argLength === 1 && (arguments[0] === 'silent' || arguments[0] === 's'); 
+
+					rm.channel.send("``" + playersCount + " players online" + (!silent ? message : "") + "``");
 					return;
 				}
+
 				let players = data.players.list.join(', ');
 				rm.channel.send("``" + playersCount + " players online:\n" + players + "``");
 			});
@@ -238,4 +238,5 @@ function preffixChecker(message) {
 
 // https://discordapp.com/developers/applications/
 
-client.login(process.env.YOUR_TOKEN);
+client.login('NDczNTE5NjkyMDM2OTY0MzYz.XRKWTw.LGYhKqupdE2v7WogoZSwlzePFCk');
+// client.login(process.env.YOUR_TOKEN);
