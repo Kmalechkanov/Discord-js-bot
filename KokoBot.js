@@ -111,25 +111,25 @@ async function processCommand(rm) {
 		fetch('https://api.mcsrvstat.us/2/play.ghostmc.eu')
 			.then(response => response.json())
 			.then(data => {
-				if(data.online === false) {
+				if (data.online === false) {
 					rm.channel.send("Servera e offline");
 					return;
 				}
 
 				let playersCount = data.players.online;
-				if(playersCount == 0) {
+				if (playersCount == 0) {
 					rm.channel.send("0 players online.");
 					return;
 				}
 
-				if(!data.players.list) {
+				if (!data.players.list) {
 					let message = "\n" +
-					"Enable this to get detailled information about the server (all names of the online players):\n" +
-					"	query-plugins: true | bukkit.yml\n" +
-					"	qenable-query=true | server.properties\n" + 
-					"To skip that message use '~ghostmc s' or '~ghostmc silent'";
+						"Enable this to get detailled information about the server (all names of the online players):\n" +
+						"	query-plugins: true | bukkit.yml\n" +
+						"	qenable-query=true | server.properties\n" +
+						"To skip that message use '~ghostmc s' or '~ghostmc silent'";
 
-					let silent = argLength === 1 && (arguments[0] === 'silent' || arguments[0] === 's'); 
+					let silent = argLength === 1 && (arguments[0] === 'silent' || arguments[0] === 's');
 
 					rm.channel.send("``" + playersCount + " players online" + (!silent ? message : "") + "``");
 					return;
@@ -210,12 +210,35 @@ async function processCommand(rm) {
 	}
 }
 
+async function broimSi(message) {
+	message.channel.messages.fetch({ limit: 15 }).then(mess => {
+		messages = [...mess.values()].reverse();
+
+		let deleted = 1;
+		for (let i = 1; i < messages.length; i++) {
+			if(Number(messages[i-deleted].content)+1 !== Number(messages[i].content) || messages[i-deleted].author.id === messages[i].author.id) {
+				console.log(messages[i-deleted].content, messages[i].content)
+				try {
+					messages[i].delete();
+				} catch (error) {
+					
+				}
+				deleted++;
+			}
+		}
+	});
+}
+
 client.on('ready', () => {
 	console.log('Connected as ' + client.user.tag)
 });
 
 client.on('message', (message) => {
 	if (message.author == client.user) {
+		return;
+	}
+	if (message.channelId === "779041782046523433") {
+		broimSi(message);
 		return;
 	}
 	if (!preffixChecker(message.content)) {
